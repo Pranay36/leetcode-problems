@@ -5,7 +5,7 @@ public:
         int s=0;
         int e=n-1;
         while(s<=e){
-            int mid = s+(e-s)/2;
+            int mid = (s+e)/2;
             if(v[mid]==t){
                 return mid;
             }
