@@ -10,14 +10,12 @@ using namespace std;
 class Solution {
   public:
     bool arraySortedOrNot(int v[], int n) {
-        vector<int>vec;
-        for(int i=0;i<n-1;i++){
-            int x = v[i+1]-v[i];
-            if(x<0){
-                return 0;
+        for(int i=1;i<n;i++){
+            if(v[i]-v[i-1]<0){
+                return false;
             }
         }
-        return 1;
+        return true;
     }
 };
 
