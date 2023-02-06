@@ -2,7 +2,8 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) {
         int mxleft =nums[0];
-        int mxright=nums[0];
+        int n = nums.size();
+        int mxright=nums[n-1];
         int mul=1;
         bool zero=false;
         
