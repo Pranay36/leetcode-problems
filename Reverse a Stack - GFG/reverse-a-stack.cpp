@@ -10,14 +10,15 @@ using namespace std;
 
 class Solution{
 public:
-
+stack<int> t;
     void Reverse(stack<int> &st){
-        stack<int>x;
-        while(!st.empty()){
-            x.push(st.top());
-            st.pop();
+        if(st.empty()){
+            st = t;
+            return;
         }
-        st = x;
+        t.push(st.top());
+        st.pop();
+        Reverse(st);
         
     }
 };
