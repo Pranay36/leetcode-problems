@@ -1,17 +1,39 @@
 class Solution {
 public:
-        int shipWithinDays(vector<int>& weights, int D) {
-        int left = 0, right = 25000000;
-        for (int w: weights)
-            left = max(left, w);
-        while (left < right) {
-            int mid = (left + right) / 2, need = 1, cur = 0;
-            for (int i = 0; i < weights.size() && need <= D; cur += weights[i++])
-                if (cur + weights[i] > mid)
-                    cur = 0, need++;
-            if (need > D) left = mid + 1;
-            else right = mid;
+    bool isfis(vector<int> weights,int mid,int days){
+        int totday=1;
+        int cur=0;
+        for(int i=0;i<weights.size();i++){
+            cur += weights[i];
+            if(cur>mid){
+                totday++;
+                cur = weights[i];
+            }
         }
-        return left;
+        return totday<=days;
+    }
+    
+    int shipWithinDays(vector<int>& weights, int days) {
+        int tot =0;
+        int mx =0;
+        for(int i=0;i<weights.size();i++){
+            tot += weights[i];
+            mx = max(mx,weights[i]);
+        }
+        int l = mx;
+        int h = tot;
+        
+        while(l<h){
+            int mid = (l+h)/2;
+            
+            if(isfis(weights,mid,days)){
+                h = mid;
+            }
+            else{
+                l = mid+1;
+            }
+            
+        }
+        return l;
     }
 };
