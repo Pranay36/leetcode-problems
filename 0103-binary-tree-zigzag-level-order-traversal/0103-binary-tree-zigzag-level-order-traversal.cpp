@@ -12,40 +12,53 @@
 class Solution {
     
 public:
-
-
-vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
-        
-        if (!root) return {};
-        
-        queue<TreeNode*> q;
-        vector<vector<int>> out;
-            
-        q.push(root);  
-        int level = 0; 
-        
-        while (!q.empty()) {
-            
-            int sz = q.size();  
-            vector<int> curr(sz); 
-            
-            for (int i = 0; i < sz; i++) {
-                
-                TreeNode* tmp = q.front();
-                q.pop();
-                
-                if (level == 0) {
-                    curr[i] = tmp->val; 
-                } else {
-                    curr[sz - i - 1] = tmp->val; 
-                }
-                
-                if (tmp->left) q.push(tmp->left);
-                if (tmp->right) q.push(tmp->right);
-            }
-            out.push_back(curr); 
-            level = !level; 
+    int height(TreeNode* root){
+        if(root==NULL){
+            return 0;
         }
-        return out;
+        else{
+            int lh = height(root->left);
+            int rh = height(root->right);
+            
+            if(lh>rh){
+                return lh+1;
+            }
+            else
+                return rh+1;
+        }
+    }
+    
+    void add(TreeNode* root, int h, vector<int> &v){
+        if(root==NULL){
+            return;
+        }
+        if(h==1){
+            v.push_back(root->val);
+        }
+        else if(h>1){
+            add(root->right,h-1,v);
+            add(root->left,h-1,v);
+        }
+    }
+    
+    void solve(vector<vector<int>> &ans, TreeNode* root){
+        int h = height(root);
+        
+        for(int i=1;i<=h;i++){
+            vector<int> v;
+            add(root,i,v);
+            ans.push_back(v);
+        }
+        
+    }
+  
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    vector<vector<int>>ans;
+    int x=0;
+    solve (ans, root);
+    for(int i=0;i<ans.size();i=i+2){
+        reverse(ans[i].begin(),ans[i].end());
+    }
+    return ans;
 }
 };
