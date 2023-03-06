@@ -1,28 +1,30 @@
 class Solution {
 public:
-    int searchInsert(vector<int>& v, int n) {
+    int searchInsert(vector<int>& num, int target) {
         int l = 0;
-        int h = v.size()-1;
-        int ans;
-        int cel;
-        if(n>v[v.size()-1]){
-            cel = v.size();
-        }else{
-            while(l<=h){
-                int mid = (l+h)/2;
-                if(v[mid]==n){
-                    cel = mid;
-                    break;
-                }
-                else if(v[mid]<n){
-                    l = mid+1;
-                }
-                else{
-                    h = mid-1;
-                    cel = mid;
-                }
+        int n = num.size();
+        int h = n-1;
+        bool f=false;
+        int ans=-1;
+        if(num[n-1]<target){
+            ans=n;
+        }
+        else{
+        while(l<=h){
+            int mid = (l+h)/2;
+            if(num[mid]==target){
+                ans = mid;
+                break;
+            }
+            else if(num[mid]<target){
+                l = mid+1;
+            }
+            else{
+                h = mid-1;
+                ans = mid;
             }
         }
-        return cel;
+        }
+        return ans;
     }
 };
