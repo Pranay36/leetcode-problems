@@ -2,27 +2,26 @@ class Solution {
 public:
     int compress(vector<char>& chars) {
         int n = chars.size();
-        if (n == 1) {
-            return 1;
+        if(n==1){
+            return n;
         }
-        
-        int i = 0, j = 0;
-        while (i < n) {
-            int count = 1;
-            while (i < n - 1 && chars[i] == chars[i + 1]) {
-                count++;
+       vector<char> v;
+        for(int i=0;i<n;){
+            int count =0;
+            char letter = chars[i];
+            while(i<n && chars[i]==letter){
                 i++;
+                count++;
+            }
+            v.push_back(letter);
+            if(count>1){
+            for(char c:to_string(count)){
+                v.push_back(c);
+            }
             }
             
-            chars[j++] = chars[i++];
-            if (count > 1) {
-                string countStr = to_string(count);
-                for (char c : countStr) {
-                    chars[j++] = c;
-                }
-            }
         }
-        
-        return j;
+        chars = v;
+        return chars.size();
     }
 };
