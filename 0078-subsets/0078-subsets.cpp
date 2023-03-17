@@ -1,22 +1,44 @@
 class Solution {
 public:
-    void solve(vector<int>& num, vector<vector<int>>&ans, vector<int> &v,int ind){
-        if(ind==num.size()){
-            ans.push_back(v);
-            return;
-        }
-        
-        v.push_back(num[ind]);
-        solve(num,ans,v,ind+1);
-        v.pop_back();
-        solve(num,ans,v,ind+1);
-        return;
-    }
     vector<vector<int>> subsets(vector<int>& num) {
-        vector<vector<int>>ans;
-        vector<int> v;
-        int ind=0;
-        solve(num,ans,v,ind);
+        vector<vector<int>> ans;
+        int n = num.size();
+        int x = pow(2,n);
+        for(int i=0;i<x;i++){
+            vector<int> v;
+          
+            for(int j=0;j<n;j++){
+            
+                if(i&(1<<j)){
+                    v.push_back(num[j]);
+                }
+            }
+            ans.push_back(v);
+        }
         return ans;
     }
 };
+
+// class Solution {
+// public:
+//     vector<vector<int>> subsets(vector<int>& nums) {
+//         vector<vector<int>>ans;
+        
+//         int n=nums.size();
+//         int setSize = 1<<n;   // 2^n Number of subset ;
+        
+//         for(int i=0;i<setSize;i++){
+            
+//             vector<int>temp;   // for storing values in subsets
+            
+//             for(int j=0;j<n;j++){
+                
+//                 if(i & (1<<j)){ //Checking for set bits in number i;
+//                 temp.push_back(nums[j]);   // Push the value which is at founded index of setbit 
+//                 }
+//             }
+//             ans.push_back(temp);
+//         }
+//         return ans;
+//     }
+// };
