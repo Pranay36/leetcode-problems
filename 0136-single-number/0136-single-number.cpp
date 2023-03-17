@@ -1,18 +1,11 @@
 class Solution {
 public:
-    int singleNumber(vector<int>& v) {
-        map<int, int> m;
-        int n = v.size();
-            for(int i=0;i<n;i++){
-                m[v[i]]++;
-            }
-        for(auto x:m){
-            if(x.second==1){
-                return x.first;
-            
+    int singleNumber(vector<int>& num) {
+        int n = num.size();
+        int ans=num[0];
+        for(int i=1;i<n;i++){
+            ans = ans^num[i];
         }
-        }
-        return 0;
-        
+        return ans;
     }
 };
