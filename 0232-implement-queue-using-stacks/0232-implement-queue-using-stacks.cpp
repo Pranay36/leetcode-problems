@@ -1,45 +1,34 @@
 class MyQueue {
-    stack<int> in;
-    stack<int> out;
 public:
-    /** Initialize your data structure here. */
+    stack<int> s1;
+    stack<int> s2;
     MyQueue() {
-        in = stack<int>();
-        out = stack<int>();    
+        
     }
     
-    /** Push element x to the back of queue. */
     void push(int x) {
-        in.push(x);
+        while(!s1.empty()) {
+            s2.push(s1.top());
+            s1.pop();
+        }
+        s2.push(x);
+        while(!s2.empty()) {
+            s1.push(s2.top());
+            s2.pop();
+        }
     }
     
-    /** Removes the element from in front of queue and returns that element. */
     int pop() {
-        if(out.empty()) {  
-            while(!in.empty()) {
-                out.push(in.top());
-                in.pop();       
-            }    
-        }  
-        int val = out.top();
-        out.pop();
-        return val;   
+        int curr = s1.top();
+        s1.pop();
+        return curr;
     }
-
+    
     int peek() {
-        if(out.empty()) {
- 
-            while(!in.empty()) {
-                out.push(in.top());
-                in.pop();     
-            }   
-        }  
-        return out.top();  
+        return s1.top();
     }
-
+    
     bool empty() {
-        
-        return out.empty() && in.empty();
-        
+        return s1.empty();
     }
 };
