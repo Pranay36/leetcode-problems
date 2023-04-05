@@ -21,8 +21,21 @@ public:
         int n = v.size();
         int buy = 1;
         // vector<vector<int>>dp(n,vector<int>(2,-1));
-        vector<vector<vector<int>>> dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
+        vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(2,vector<int>(3,0)));
         int x = f(v,0,buy,n,2,dp);
-        return x;
+        for(int i=n-1;i>=0;i--){
+            for(int j =0;j<=1;j++){
+                for(int k=1;k<=2;k++){
+                    if(j==1)
+                    dp[i][j][k]= max(-v[i]+dp[i+1][0][k], dp[i+1][1][k]);
+                    else
+                       dp[i][j][k]= max(v[i]+dp[i+1][1][k-1], dp[i+1][0][k]); 
+                        
+                }
+            }
+        }
+        
+        
+        return dp[0][1][2];
     }
 };
