@@ -9,31 +9,24 @@ class Solution
 {
     public:
     
-    int f(int v[],int i,int prev,int n,vector<vector<int>>&dp){
-        if(i==n){
-            return 0;
-        }
-        if(dp[i][prev+1]!=-1){
-            return dp[i][prev+1];
-        }
-        int nottake = f(v,i+1,prev,n,dp);
-
-        int take =0;
-        if(prev==-1||v[i]>v[prev]){
-            take = 1+f(v,i+1,i,n,dp);
-        }
-        return dp[i][prev+1] = max(take,nottake);
-    }
-    
-    
     //Function to find length of longest increasing subsequence.
     int longestSubsequence(int n, int v[])
     {
+       vector<int>temp;
+       temp.push_back(v[0]);
        
-        int prev = -1;  
-        vector<vector<int>>dp(n,vector<int>(n+1,-1));
-        int x = f(v,0,prev,n,dp);
-        return x;
+       int len=1;
+       for(int i=1;i<n;i++){
+           if(v[i]>temp.back()){
+               temp.push_back(v[i]);
+               len++;
+           }
+           else{
+               int ind  = lower_bound(temp.begin(),temp.end(),v[i])-temp.begin();
+               temp[ind] = v[i];
+           }
+       }
+       return len;
     }
 };
 
