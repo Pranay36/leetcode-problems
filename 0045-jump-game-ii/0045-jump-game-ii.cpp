@@ -1,24 +1,34 @@
 class Solution {
 public:
-    int jump(vector<int>& n) {
-        int count=0;
-        int j=0;
-        int i =0;
-        while(j<n.size()-1){
-             count++;
-            int mx = j+1;
-
-            for(int k = i;k<=j;k++){
-                if(i+n[k]>=n.size()-1)
-                    return count;
-                mx = max(mx,k+n[k]);
-            }
-            
-            i = j+1;
-            j = mx;
-           
+    long long int f(int i,int count,vector<int> &v, int n,vector<int> &dp){
+        if(i>=n-1){
+            return 0; 
         }
-        return count;
+        if(dp[i]!=-1){
+            return dp[i];
+        }
+        int temp = 100000;
+        for(int j=1;j<=v[i];j++){
+            // cout<<j<<" ";
+            if(i+j<n){
+                int con = 1+f(i+j,count,v,n,dp);
+                temp = min(temp,con); 
+            }
+        }
+        // cout<<endl;
+       
+        
+        return dp[i]= temp;
+        
+    }
+    
+    int jump(vector<int>& v) {
+       int n = v.size();
+        int count =0;
+        int ans=0;
+        vector<int> dp(n,-1);
+        int x = f(0,count,v,n,dp);
+        return x;
     }
 };
 
