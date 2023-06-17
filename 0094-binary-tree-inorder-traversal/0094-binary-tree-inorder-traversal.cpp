@@ -11,13 +11,33 @@
  */
 class Solution {
 public:
-    vector<int> v;
     vector<int> inorderTraversal(TreeNode* root) {
-        if(root){
-        inorderTraversal(root->left);
-        v.push_back(root->val);
-        inorderTraversal(root->right);
+        // if(root){
+        // inorderTraversal(root->left);
+        // v.push_back(root->val);
+        // inorderTraversal(root->right);
+        // }
+        vector<int> v;
+        stack<TreeNode*> st;
+        
+        if(root==NULL){
+            return v;
         }
+        
+        while(true){
+            if(root!=NULL){
+                st.push(root);
+                root = root->left;
+            }else{
+                if(st.size()==0)
+                    break;
+                root = st.top();
+                v.push_back(root->val);
+                st.pop();
+                root = root->right;
+            }
+        }
+        
         return v;
     }
 };
