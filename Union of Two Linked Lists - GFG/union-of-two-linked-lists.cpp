@@ -54,14 +54,6 @@ class Solution
             v.push_back(it.first);
         }
         
-        // sort(v.begin(),v.end());
-        // for(int i=0;i<v.size();i++){
-        //     cout<<v[i]<<" ";
-        // }
-        
-        // cout<<endl;
-        
-        
         Node* ans = new Node(v[0]);
         Node* cur3 = ans;
         for(int i=1;i<v.size();i++){
