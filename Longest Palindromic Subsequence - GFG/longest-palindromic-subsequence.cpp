@@ -10,27 +10,30 @@ using namespace std;
 
 class Solution{
   public:
-  
-    int f(string &temp,string &s, int i,int j,vector<vector<int>> &dp){
-        if(i<0||j<0){
-            return 0;
+ 
+      int longestPalinSubseq(string s) {
+        int l = s.length();
+        string a = s;  // reverse of the string s we are storing in string a
+        reverse(a.begin(), a.end());
+
+        vector<int> curr(l+1,0);
+        vector<int> next(l+1,0);
+        
+        for(int i=l-1; i>=0; i--)
+        {
+            for(int j=l-1; j>=0; j--)
+            {
+                int ans = 0;
+                if(a[i] == s[j]) ans = 1 + next[j+1];
+
+                else ans = max(next[j], curr[j+1]);
+                curr[j] = ans;
+            }
+            next = curr;
         }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
-        }
-        if(temp[i]==s[j]){
-            return dp[i][j]= 1+ f(temp,s,i-1,j-1,dp);
-        }
-        return dp[i][j]= max(f(temp,s,i,j-1,dp),f(temp,s,i-1,j,dp));}
-    
-    int longestPalinSubseq(string s) {
-        int n = s.size();
-        string temp = s;
-        vector<vector<int>> dp(n,vector<int>(n,-1));
-        reverse(s.begin(),s.end());
-        int x = f(temp,s,n-1,n-1,dp);
-        return x;
+        return next[0];
     }
+    
 };
 
 //{ Driver Code Starts.
