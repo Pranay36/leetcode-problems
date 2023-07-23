@@ -32,50 +32,37 @@ struct Node *start = NULL;
 class Solution
 {
     public:
-    
-    
     //Function to sort a linked list of 0s, 1s and 2s.
     Node* segregate(Node *head) {
-        
-        Node* zero = new Node(-1);
-        Node* z = zero;
-        
-        Node* one = new Node(-1);
-        Node* o = one;
-        Node* two = new Node(-1);
-        Node* t = two;
-            Node* curr = head;
-    
-    // create separate list 0s, 1s and 2s
-    while(curr != NULL) {
-        
-        int value = curr -> data;
-        
-        if(value == 0) {
-            z -> next = curr;
-            z= curr;
+        // Add code here
+        int zeros = 0;
+        int ones = 0;
+        int twos = 0;
+        while(head != NULL){
+            if(head->data == 0) zeros++;
+            else if(head->data == 1) ones++;
+            else if(head->data == 2) twos++;
+            head = head->next;
         }
-        else if(value == 1) {
-            o -> next = curr;
-            o= curr;
+        while(twos>0){
+            struct Node* n = new Node(2);
+            n->next = head;
+            head = n;
+            twos--;
         }
-        else if(value == 2) {
-            t -> next = curr;
-            t = curr;
-        }       
-        curr = curr -> next;
-    }
-        if(one -> next != NULL) {
-        z -> next = one -> next;
-    }
-    else {
-        //1s list -> empty
-        z -> next = two -> next;
-    }
-       o -> next = two -> next;
-       t -> next = NULL;
-       head = zero -> next;
-       return head;
+        while(ones>0){
+            struct Node* n = new Node(1);
+            n->next = head;
+            head = n;
+            ones--;
+        }
+        while(zeros>0){
+            struct Node* n = new Node(0);
+            n->next = head;
+            head = n;
+            zeros--;
+        }
+        return head;
     }
 };
 
