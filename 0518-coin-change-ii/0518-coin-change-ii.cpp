@@ -1,33 +1,34 @@
 class Solution {
 public:
-    int f(vector<int>&v, int sum, int i, vector<vector<int>> &dp){
-        if(i==0){
+    
+    int solve(vector<int> &coin, int n,vector<vector<int>>&dp,int sum){
+        if(n==0){
             if(sum==0){
-                return 1;
+            return 1;
             }
-            else if(sum%v[i]==0)
+            else if(sum%coin[n]==0)
                 return 1;
-            else 
+            else
                 return 0;
         }
         
-        if(dp[i][sum]!=-1){
-            return dp[i][sum];
+        if(dp[n][sum]!=-1){
+            return dp[n][sum];
         }
         
-        int nottake = f(v,sum,i-1,dp);
-        int take = 0;
-        if(v[i]<=sum){
-            take = f(v,sum-v[i],i,dp);
+        int take=0;
+        
+        int nottake =solve(coin,n-1,dp,sum);
+        if(coin[n]<=sum){
+            take = solve(coin,n,dp,sum-coin[n]);
         }
-        return dp[i][sum]= nottake+take;
+        return dp[n][sum]= take+nottake;
     }
     
-    
-    int change(int sum, vector<int>& v) {
-        int n = v.size();
-        vector<vector<int>> dp(n, vector<int> (sum+1, -1));
-        int x = f(v,sum,n-1,dp);
+    int change(int sum, vector<int>& coin) {
+        int n = coin.size();
+        vector<vector<int>> dp(n, vector<int>(sum+1,-1));
+        int x = solve(coin,n-1,dp,sum);
         return x;
     }
 };
