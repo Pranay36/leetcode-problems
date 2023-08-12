@@ -8,25 +8,21 @@ using namespace std;
 class Solution
 {
     public:
-    
     //Function to find length of longest increasing subsequence.
-    int longestSubsequence(int n, int v[])
+    int longestSubsequence(int n, int a[])
     {
-       vector<int>temp;
-       temp.push_back(v[0]);
-       
-       int len=1;
-       for(int i=1;i<n;i++){
-           if(v[i]>temp.back()){
-               temp.push_back(v[i]);
-               len++;
-           }
-           else{
-               int ind  = lower_bound(temp.begin(),temp.end(),v[i])-temp.begin();
-               temp[ind] = v[i];
+       vector<int>v;
+       v.push_back(a[0]);
+       for(int i=0;i<n;i++){
+           if(a[i]>v.back()){
+               v.push_back(a[i]);
+           }else{
+               int ind = lower_bound(v.begin(),v.end(),a[i]) - v.begin();
+               
+               v[ind] = a[i];
            }
        }
-       return len;
+       return v.size();
     }
 };
 
