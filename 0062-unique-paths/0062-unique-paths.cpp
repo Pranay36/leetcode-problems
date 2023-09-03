@@ -9,15 +9,15 @@ public:
                     dp[i][j]=1;
                 }
                 else{
-                int up = 0;
+                int down = 0;
                 int right =0;
                 if(i>0){
-                    up = dp[i-1][j];
+                    down = dp[i-1][j];
                 }
                 if(j>0){
                     right = dp[i][j-1];
                 }
-                dp[i][j] = up+right;
+                dp[i][j] = down+right;
                 }
             }
         }
