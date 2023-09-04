@@ -8,6 +8,7 @@
  */
 class Solution {
 public:
+    
     bool hasCycle(ListNode *head) {
         ListNode* temp = head;
         map<ListNode*,int> m;
