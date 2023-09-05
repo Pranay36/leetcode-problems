@@ -6,15 +6,16 @@ using namespace std;
 class Solution {
   public:
     // Function to return the adjacency list for each vertex.
-    vector<vector<int>> printGraph(int V, vector<int> adj[]) {
-        vector<vector<int>> ans;
-        for(int i=0;i<V;i++){
-            reverse(adj[i].begin(),adj[i].end());
-            adj[i].push_back(i);
-            reverse(adj[i].begin(),adj[i].end());
-            ans.push_back(adj[i]);
+    vector<vector<int>> printGraph(int v, vector<pair<int,int>>edge) {
+        vector<vector<int>> res(v);
+        vector<int> vec;
+        int n = edge.size();
+        for(int i=0;i<n;i++){
+            auto x = edge[i];
+            res[x.first].push_back(x.second);
+            res[x.second].push_back(x.first);
         }
-        return ans;
+        return res;
     }
 };
 
@@ -25,21 +26,20 @@ int main() {
     while (tc--) {
         int V, E;
         cin >> V >> E;
-        vector<int> adj[V];
+        vector<pair<int,int>>edges;
         for (int i = 0; i < E; i++) {
             int u, v;
             cin >> u >> v;
-            adj[u].push_back(v);
-            adj[v].push_back(u);
+            edges.push_back({u,v});
         }
         Solution obj;
-        vector<vector<int>> ans = obj.printGraph(V, adj);
-        for (int i = 0; i < ans.size(); i++) {
-            for (int j = 0; j < ans[i].size() - 1; j++) {
-                cout << ans[i][j] << "-> ";
-            }
-            cout << ans[i][ans[i].size() - 1];
-            cout << endl;
+        vector<vector<int>> adj = obj.printGraph(V, edges);
+        for(int i=0;i<V;i++)
+        {
+            sort(adj[i].begin(),adj[i].end());
+            for(auto it:adj[i])
+                cout<<it<<" ";
+            cout<<endl;
         }
     }
     return 0;
