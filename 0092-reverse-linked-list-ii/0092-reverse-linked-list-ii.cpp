@@ -11,22 +11,7 @@
 class Solution {
 public:
     
-    ListNode* reverse(ListNode* head){
-        if(head==NULL || head->next==NULL){
-            return head;
-        }
-        ListNode* cur=head;
-        ListNode* prev = NULL;
-        ListNode* nxt = head;
-        
-        while(cur!=NULL){
-            nxt = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur= nxt;
-        }
-        return prev;
-    }
+  
     
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         ListNode *dummy = new ListNode(0), *pre = dummy, *cur;
