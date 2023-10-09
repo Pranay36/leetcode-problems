@@ -1,45 +1,45 @@
 class Solution {
 public:
-    int solve(vector<int>& nums , int l , int r, int target)
-{
-    int ans = -1;
-    while(r >= l){
-        int mid = (l+r)/2;
-        if(nums[mid] == target)
-        {
-            return mid;
-        }else{
-            if(nums[mid] < target){
-                l = mid+1;
-            }else{
+    vector<int> searchRange(vector<int>& num, int x) {
+        int n = num.size();
+        int l =0;
+        int r = n-1;
+        int p =INT_MAX;
+        int q = -1;
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(num[mid]==x){
+                p = min(mid,p);
+                // q = max(mid,p);
+                r= mid-1;
+            }
+            if(num[mid]>x){
                 r = mid-1;
             }
+            if(num[mid]<x){
+                l = mid+1;
+            }
+            
         }
-    }
-    return ans;
-}
-    
-    
-    vector<int> searchRange(vector<int>& v, int k) {
-        // int left,right;
-        int n = v.size();
-        int mid = solve(v,0,n-1,k);
-        int l=mid;
-        int r=mid;
-        while(1){
-            int left = solve(v,0,l-1,k);
-            int right = solve(v,r+1,n-1,k);
-            if(left==-1 &&right ==-1){
-                break;
+        l=0;
+        r = n-1;
+        while(l<=r){
+            int mid = (l+r)/2;
+            if(num[mid]==x){
+                // p = min(mid,p);
+                q = max(mid,p);
+                l= mid+1;
             }
-            if(left!=-1){
-                l = left;
+            if(num[mid]>x){
+                r = mid-1;
             }
-            if(right!=-1){
-                r = right;
+            if(num[mid]<x){
+                l = mid+1;
             }
+            
         }
-        
-    return {l,r};    
+        if(p==INT_MAX)
+            p=-1;
+        return{p,q};
     }
 };
