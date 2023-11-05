@@ -1,26 +1,26 @@
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
-        int n = s.size();
-        unordered_set<string> m;
-        for(auto x:wordDict){
-            m.insert(x);
+        set<string> x;
+        for(auto it:wordDict){
+            x.insert(it);
         }
-        vector<bool> dp(n+1,0);
-        dp[0]=true;
-        
+        int n = s.size();
+        vector<int> v(n+1,0);
+        v[0] = 1;
         for(int i=1;i<=n;i++){
             for(int j=i-1;j>=0;j--){
-                if(dp[j]){
-                string word = s.substr(j,i-j);
-                if(m.find(word)!=m.end()){
-                    dp[i]=true;
-                    break;
-                }
+                if(v[j]){
+                    string temp = s.substr(j,i-j);
+                    if(x.find(temp)!=x.end()){
+                        v[i] =1;
+                        break;
+                    }
                 }
             }
         }
-        return dp[n];
+        cout<<v[n];
+        return v[n];
         
     }
 };
